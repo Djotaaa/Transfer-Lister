@@ -1,0 +1,59 @@
+﻿@using Transfer_ListerWebApp.Models.DTO
+@model List<PlayerDTO>
+@{
+    ViewData["Title"] = "Transfer List";
+}
+
+<div class="container text-center">
+    <h2>Your Transfer Listed Players</h2>
+
+    @if(TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <table class="playersTable">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Positions</th>
+                <th>Born Date</th>
+                <th>Price (€ in milions)</th>
+                <th>Listed Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in Model)
+            {
+                <tr>
+                    <td>@player.FirstName</td>
+                    <td>@player.LastName</td>
+                    <td>
+                        @string.Join(" | ", player.Positions.Select(p => p.PositionName))
+                    </td>
+                    <td>@player.BornDate</td>
+                    <td>@player.Price</td>
+                    <td>@player.ListedDate</td>
+                    <td>
+                        <a asp-action="Update" asp-route-Id="@player.Id" class="btn btn-warning"><i class="bi bi-pencil-square" style="color: white"></i></a>
+                        <form asp-action="Delete" asp-route-Id="@player.Id" method="post" onsubmit="return confirm('Are you sure want to delete this player ?');" style="display:inline">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-success" id="addButton" asp-action="Create">Add player <i class="bi bi-plus-circle"></i></a>
+</div>

@@ -1,0 +1,38 @@
+﻿@using Transfer_ListerWebApp.Models.DTO
+@model UpdatePlayerDTO
+
+@{
+    ViewData["Title"] = "Update player";
+}
+
+<div class="container text-center">
+    
+    <h2>Update Transfer Listed Player</h2>
+
+    @if (TempData["ErrorDTO"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorDTO"]
+        </div>
+    }
+
+    <form id="updateForm" asp-action="Update" method="post">
+        <label asp-for="FirstName" class="form-control mb-2">First Name</label>
+        <input asp-for="FirstName" class="form-control text-center mb-2" required/>
+
+        <label asp-for="LastName" class="form-control mb-2">Last Name</label>
+        <input asp-for="LastName" class="form-control text-center mb-2" required />
+
+        <label asp-for="PositionsInput" class="form-control mb-2">Player Positions (etc. LW, ST...)</label>
+        <input asp-for="PositionsInput" class="form-control text-center mb-2" required />
+
+        <label asp-for="BornDate" class="form-control mb-2">Born Date</label>
+        <input asp-for="BornDate" type="date" class="form-control text-center mb-2" required />
+
+        <label asp-for="Price" class="form-control mb-2">Price (€ in milions)</label>
+        <input asp-for="Price" type="number" step="any" class="form-control text-center mb-2" required />
+
+        <button type="submit" class="btn btn-success mt-2">Update player <i class="bi bi-pencil-square" style="color: white"></i></button>
+    </form>
+
+</div>
